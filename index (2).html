@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><title>SeizureGuard – Early Warning & Care Circle</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<style>
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);--bg:#fff7ee;--card:#fff;--tx:#3a2a22;--mu:#7d6a5f;--bd:#f0dfd0;--teal:#0f9d8a;--coral:#ff6b57;--amber:#ffb020;--purple:#7a5af8;--green:#2eb872;--red:#e5383b;--tealbg:#e1f6f2;--coralbg:#ffe9e5;--amberbg:#fff3d6;--purplebg:#eee9ff;--greenbg:#e2f7ec}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#1d1613;--card:#2a201b;--tx:#f6e9df;--mu:#c3ad9f;--bd:#443429;--tealbg:#12332e;--coralbg:#43241f;--amberbg:#40320f;--purplebg:#2e2750;--greenbg:#173826}}
+:root[data-theme="dark"]{--bg:#1d1613;--card:#2a201b;--tx:#f6e9df;--mu:#c3ad9f;--bd:#443429;--tealbg:#12332e;--coralbg:#43241f;--amberbg:#40320f;--purplebg:#2e2750;--greenbg:#173826}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--tx);font:16px/1.55 system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
+header{background:linear-gradient(90deg,var(--teal),var(--purple));position:sticky;top:env(safe-area-inset-top,0px);z-index:5;box-shadow:0 2px 10px #0002}
+.bar{max-width:1050px;margin:auto;padding:10px 16px;display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between}
+.logo{font-weight:800;font-size:21px;color:#fff}
+nav{display:flex;gap:5px;flex-wrap:wrap}nav button{background:#ffffff26;border:0;color:#fff;font:600 14px inherit;padding:8px 13px;border-radius:20px;cursor:pointer}
+nav button.on{background:#fff;color:var(--purple)}
+main{max-width:1050px;margin:auto;padding:20px 16px 60px}section{display:none}section.on{display:block}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:16px;padding:20px;margin-bottom:16px}
+h1{font-size:32px;margin:0 0 8px;line-height:1.2}h2{margin:0 0 6px;font-size:22px}h3{margin:16px 0 8px;font-size:16px}p{margin:6px 0;color:var(--mu)}
+.hero{background:linear-gradient(135deg,var(--coral),var(--amber));color:#fff;border:0}.hero p{color:#fff;font-size:17px}
+.btn{background:var(--teal);color:#fff;border:0;padding:12px 20px;border-radius:12px;font:700 15px inherit;cursor:pointer;text-decoration:none;display:inline-block}
+.btn.coral{background:var(--coral)}.btn.purple{background:var(--purple)}.btn.red{background:var(--red)}.btn.amber{background:var(--amber);color:#3a2a22}.btn.w{background:#fff;color:#c2402e}
+.btn.ghost{background:var(--tealbg);color:var(--teal)}.btn.sm{padding:8px 14px;font-size:14px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px}.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-top:12px}
+.step{border-radius:16px;padding:18px;cursor:pointer}.step b{font-size:30px;display:block}
+.s1{background:var(--tealbg)}.s2{background:var(--amberbg)}.s3{background:var(--coralbg)}.s4{background:var(--purplebg)}
+.grp{border-radius:14px;padding:14px;margin:12px 0}.grp.w{background:var(--amberbg)}.grp.t{background:var(--purplebg)}.grp.h{background:var(--tealbg)}
+.chk{display:flex;gap:9px;align-items:flex-start;padding:10px 12px;background:var(--card);border:2px solid var(--bd);border-radius:12px;cursor:pointer;font-size:15px}
+.chk:has(input:checked){border-color:var(--coral);background:var(--coralbg)}.chk input{margin-top:4px;accent-color:var(--coral);width:18px;height:18px}
+input[type=text],input[type=tel],select{width:100%;padding:11px;border:2px solid var(--bd);border-radius:10px;background:var(--bg);color:var(--tx);font:inherit}
+input:focus,select:focus{outline:0;border-color:var(--teal)}label.f{font-size:13px;font-weight:700;color:var(--mu);display:block;margin:9px 0 3px}
+.res{border-left:10px solid var(--green)}.res.moderate{border-color:var(--amber)}.res.high{border-color:var(--red)}
+.meter{height:14px;background:var(--bd);border-radius:9px;overflow:hidden;margin:10px 0}.meter i{display:block;height:100%;transition:width .6s}
+.tag{display:inline-block;padding:4px 14px;border-radius:20px;color:#fff;font-weight:800;font-size:14px}
+ul{padding-left:20px;margin:6px 0}li{margin:5px 0}
+.note{font-size:13.5px;color:var(--tx);background:var(--amberbg);padding:11px 14px;border-radius:12px}
+.prog{display:flex;gap:6px;margin:10px 0}.prog i{flex:1;height:10px;border-radius:6px;background:var(--bd)}.prog i.on{background:var(--green)}
+.ct{display:flex;gap:12px;align-items:center;background:var(--greenbg);border-radius:14px;padding:12px 14px;margin-bottom:10px;flex-wrap:wrap}
+.av{width:46px;height:46px;border-radius:50%;background:var(--purple);color:#fff;font-weight:800;font-size:20px;display:flex;align-items:center;justify-content:center;flex:none}
+.ct .i{flex:1;min-width:150px}.ct .i small{color:var(--mu)}
+.slot{border:2px dashed var(--bd);border-radius:14px;padding:12px;background:var(--bg)}
+.chip{padding:4px 12px;border-radius:20px;font-size:13px;font-weight:700}.chip.no{background:var(--amberbg);color:#a66a00}.chip.ok{background:var(--green);color:#fff}
+.banner{border-radius:14px;padding:14px 16px;font-weight:700;margin-bottom:12px}.banner.none{background:var(--amberbg)}.banner.part{background:var(--tealbg);color:var(--teal)}.banner.all{background:var(--green);color:#fff}
+.scroll{overflow-x:auto}table{width:100%;border-collapse:collapse;font-size:14px}td,th{padding:9px;border-bottom:1px solid var(--bd);text-align:left}
+#toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:#2b2b2b;color:#fff;padding:12px 20px;border-radius:30px;font-weight:600;opacity:0;pointer-events:none;transition:.3s;z-index:20;max-width:90%}#toast.on{opacity:1}
+</style></head><body>
+<header><div class="bar"><div class="logo">🧠 SeizureGuard</div>
+<nav id="nav"><button data-p="home" class="on">🏠 Home</button><button data-p="check">🩺 Symptom Check</button><button data-p="contacts">👥 My Contacts</button><button data-p="alert">🚨 Alert Center</button><button data-p="aid">🩹 First Aid</button><button data-p="log">📋 History</button></nav></div></header>
+<main>
+
+<section id="home" class="on">
+<div class="card hero"><h1>Know earlier.<br>Get help faster. 💛</h1><p>Check your warning signs, get a risk level with safety steps, and alert the 3 people you trust, with confirmation that your message was sent.</p>
+<div class="row"><button class="btn w" onclick="go('check')">🩺 Start symptom check</button><button class="btn w" onclick="go('contacts')">👥 Add my 3 contacts</button></div></div>
+<div class="grid">
+<div class="card step s1" onclick="go('contacts')"><b>1️⃣</b><h2>Add contacts</h2><p>Save 3 close people who can help you.</p></div>
+<div class="card step s2" onclick="go('check')"><b>2️⃣</b><h2>Check symptoms</h2><p>Select what you feel right now.</p></div>
+<div class="card step s3" onclick="go('alert')"><b>3️⃣</b><h2>Send warning</h2><p>Alert them and see who got it.</p></div>
+<div class="card step s4" onclick="go('aid')"><b>4️⃣</b><h2>Stay safe</h2><p>Follow first-aid steps.</p></div></div>
+<p class="note"><b>Important:</b> SeizureGuard is a support tool, not a medical diagnosis, and does not replace your neurologist. In India call <b>112</b> (or 108 for an ambulance) in an emergency.</p>
+</section>
+
+<section id="check">
+<div class="card"><h2>🩺 Symptom & trigger check</h2><p>Tick everything that applies to you right now.</p>
+<label class="f">Your name</label><input type="text" id="pname" placeholder="Your name">
+<div class="grp w"><h3 style="margin-top:0">⚡ Warning signs (aura)</h3><div class="grid" id="warn"></div></div>
+<div class="grp t"><h3 style="margin-top:0">🔔 Triggers today</h3><div class="grid" id="trig"></div></div>
+<div class="grp h"><h3 style="margin-top:0">🕒 History</h3><label class="chk"><input type="checkbox" id="rec"> I had a seizure in the last 7 days</label></div>
+<div class="row"><button class="btn coral" onclick="analyse()">Analyse my risk</button><button class="btn ghost" onclick="resetC()">Clear</button></div></div>
+<div id="result"></div>
+</section>
+
+<section id="contacts">
+<div class="card"><h2>👥 My 3 Close Contacts</h2><p>Register the 3 people who will be warned and will come to help during a seizure.</p>
+<div class="prog" id="prog"></div><p id="progtxt"><b>0 of 3</b> contacts saved</p>
+<h3>Saved contacts</h3><div id="saved"></div></div>
+<div class="card"><h2>➕ Add / edit contacts</h2>
+<label class="f">Your full name (shown in alerts)</label><input type="text" id="cname" placeholder="Your name">
+<label class="f">Medical note for helpers (optional)</label><input type="text" id="cnote" placeholder="e.g. I take Levetiracetam; allergic to penicillin">
+<div class="grid" id="cts" style="margin-top:12px"></div>
+<div class="row"><button class="btn" onclick="saveC()">💾 Save contacts</button><button class="btn ghost" onclick="go('alert')">Go to Alert Center →</button></div></div>
+</section>
+
+<section id="alert">
+<div class="card"><h2>🚨 Alert Center</h2><p>Choose why you are alerting, then tap each contact's button. The status updates once the message is opened for sending.</p>
+<label class="f">Situation</label><select id="lvl"><option value="Moderate">⚠️ Warning signs: please stay near me</option><option value="High">🔴 High risk: seizure may happen very soon</option><option value="Emergency">🆘 Seizure happening: come now</option></select>
+<div class="row"><button class="btn red" onclick="prepare()">Prepare alert for my 3 contacts</button></div></div>
+<div id="alerts"></div>
+<div class="card"><h2>📜 Alert log</h2><div class="scroll" id="alog"></div></div>
+</section>
+
+<section id="aid">
+<div class="grid">
+<div class="card" style="background:var(--tealbg)"><h2>🧍 When you feel a warning</h2><ul><li>Move away from stairs, roads, water, kitchen.</li><li>Sit or lie on a soft surface, on your side.</li><li>Press the alert button to call your contacts.</li><li>Take medicine exactly as prescribed.</li></ul></div>
+<div class="card" style="background:var(--greenbg)"><h2>✅ Helpers: DO</h2><ul><li>Stay calm and note the start time.</li><li>Clear hard or sharp objects; cushion the head.</li><li>Turn them on their side when jerking stops.</li><li>Loosen tight clothes; stay until fully awake.</li></ul></div>
+<div class="card" style="background:var(--coralbg)"><h2>❌ Helpers: DON'T</h2><ul><li>Never put anything in the mouth.</li><li>Never hold them down.</li><li>Never give food, water or pills until fully alert.</li></ul></div>
+<div class="card" style="background:var(--amberbg)"><h2>📞 Call 112 / 108 if</h2><ul><li>Seizure lasts over 5 minutes.</li><li>Repeated seizures, no waking up between them.</li><li>Breathing trouble, injury, pregnancy, or first-ever seizure.</li></ul></div>
+<div class="card" style="background:var(--purplebg)"><h2>🌱 Lifestyle tips</h2><ul><li>Sleep 7–9 hours at fixed times.</li><li>Never skip medicine; use alarms.</li><li>Avoid alcohol, screen glare, skipped meals.</li><li>Manage stress: breathing, walks, yoga.</li></ul></div></div>
+<a class="btn red" href="tel:112">📞 Call 112 now</a>
+</section>
+
+<section id="log"><div class="card"><h2>📋 My check history</h2><p>Stored only on this device.</p><div class="scroll" id="hist"></div><div class="row"><button class="btn ghost" onclick="clearH()">Delete history</button></div></div></section>
+</main><div id="toast"></div>
+<script>
+const WARN=[["Unusual smell or taste",4],["Déjà vu / strange familiarity",4],["Sudden unexplained fear or panic",3],["Flashing lights or visual changes",4],["Tingling or numbness in body",3],["Dizziness / lightheaded",2],["Strange rising feeling in stomach / nausea",3],["Muscle twitching or jerking",5],["Staring spells / blanking out",4],["Confusion or trouble speaking",4],["Hearing odd sounds",3],["Unusual headache",2],["Sudden mood change or extreme tiredness",2],["Feeling detached from surroundings",3]];
+const TRIG=[["Missed anti-seizure medicine",4],["Slept very little",3],["High stress / anxiety",2],["Alcohol or drugs",2],["Flashing lights / long screen use",2],["Fever or illness",2],["Skipped meals / low sugar",1],["Menstrual cycle / hormonal change",1]];
+const $=id=>document.getElementById(id);const M={};let S=null;try{localStorage.setItem('t','1');S=localStorage}catch(e){}
+const get=k=>{try{return S?S.getItem(k):M[k]}catch(e){return M[k]}};const set=(k,v)=>{try{S?S.setItem(k,v):M[k]=v}catch(e){M[k]=v}};
+const J=(k,d)=>{try{return JSON.parse(get(k))||d}catch(e){return d}};
+function toast(t){const e=$('toast');e.textContent=t;e.classList.add('on');setTimeout(()=>e.classList.remove('on'),2600)}
+function go(p){document.querySelectorAll('section').forEach(s=>s.classList.toggle('on',s.id==p));document.querySelectorAll('nav button').forEach(b=>b.classList.toggle('on',b.dataset.p==p));window.scrollTo(0,0);if(p=='log')showH();if(p=='alert')showLog();if(p=='contacts')showSaved()}
+$('nav').onclick=e=>{if(e.target.dataset.p)go(e.target.dataset.p)};
+function build(){
+ const mk=a=>a.map(s=>`<label class="chk"><input type="checkbox" data-w="${s[1]}" data-n="${s[0]}">${s[0]}</label>`).join('');
+ $('warn').innerHTML=mk(WARN);$('trig').innerHTML=mk(TRIG);
+ $('cts').innerHTML=[1,2,3].map(i=>`<div class="slot"><h3 style="margin-top:0">Contact ${i}</h3><label class="f">Name</label><input type="text" id="n${i}" placeholder="Full name"><label class="f">Phone (with country code)</label><input type="tel" id="p${i}" placeholder="+91XXXXXXXXXX"><label class="f">Relation</label><select id="r${i}"><option>Family</option><option>Parent</option><option>Spouse/Partner</option><option>Sibling</option><option>Friend</option><option>Neighbour</option><option>Colleague</option></select></div>`).join('');
+ const c=J('sg_c',null);if(c){$('cname').value=c.me||'';$('pname').value=c.me||'';$('cnote').value=c.note||'';[0,1,2].forEach(i=>{const x=c.list[i];if(x){$('n'+(i+1)).value=x.n;$('p'+(i+1)).value=x.p;$('r'+(i+1)).value=x.r}})}
+ showSaved();showH();showLog();
+}
+function saveC(){
+ const list=[],bad=[];[1,2,3].forEach(i=>{const n=$('n'+i).value.trim(),p=$('p'+i).value.trim();if(!n&&!p)return;if(!n||p.replace(/\D/g,'').length<10){bad.push(i);return}list.push({n,p,r:$('r'+i).value})});
+ if(bad.length){toast('Check contact '+bad.join(', ')+': need a name and a valid phone');return}
+ if(!list.length){toast('Add at least one contact');return}
+ set('sg_c',JSON.stringify({me:$('cname').value.trim(),note:$('cnote').value.trim(),list}));$('pname').value=$('cname').value;showSaved();toast('✔ '+list.length+' contact(s) saved');window.scrollTo(0,0)}
+function showSaved(){const c=J('sg_c',{list:[]});const n=c.list.length;
+ $('prog').innerHTML=[0,1,2].map(i=>`<i class="${i<n?'on':''}"></i>`).join('');$('progtxt').innerHTML=`<b>${n} of 3</b> contacts saved`+(n<3?' · add more for better safety':' · your care circle is complete 🎉');
+ $('saved').innerHTML=n?c.list.map((x,i)=>`<div class="ct"><div class="av">${x.n[0].toUpperCase()}</div><div class="i"><b>${x.n}</b><br><small>${x.r} · ${x.p}</small></div><a class="btn sm ghost" href="tel:${x.p.replace(/[^\d+]/g,'')}">📞</a><button class="btn sm coral" onclick="del(${i})">Delete</button></div>`).join(''):'<p>No contacts saved yet. Fill the form below.</p>'}
+function del(i){const c=J('sg_c',{list:[]});c.list.splice(i,1);set('sg_c',JSON.stringify(c));[1,2,3].forEach(k=>{$('n'+k).value='';$('p'+k).value=''});c.list.forEach((x,k)=>{$('n'+(k+1)).value=x.n;$('p'+(k+1)).value=x.p;$('r'+(k+1)).value=x.r});showSaved();toast('Contact deleted')}
+let last=null;
+function analyse(){
+ const w=[...document.querySelectorAll('#warn input:checked')],t=[...document.querySelectorAll('#trig input:checked')];
+ if(!w.length&&!t.length&&!$('rec').checked){toast('Please select at least one symptom or trigger');return}
+ let sc=0;[...w,...t].forEach(x=>sc+=+x.dataset.w);if($('rec').checked)sc+=3;
+ const names=w.map(x=>x.dataset.n),tn=t.map(x=>x.dataset.n);
+ const red=names.includes("Muscle twitching or jerking")&&(names.includes("Confusion or trouble speaking")||names.includes("Staring spells / blanking out"));
+ const lvl=sc>=13||red?'high':sc>=6?'moderate':'low';const pct=Math.min(100,Math.round(sc/30*100));
+ const col={low:'var(--green)',moderate:'var(--amber)',high:'var(--red)'}[lvl];
+ const m={low:['🟢 Low risk','Few warning signs right now. Stay alert and fix your triggers.',['Rest, drink water and eat regularly.','Take medicines on time.','Avoid screens, alcohol and stress today.','Re-check if a new symptom appears.']],
+ moderate:['🟡 Moderate risk','A seizure is possible in the coming hours. Prepare now.',['Sit or lie down in a safe place away from hazards.','Do NOT go out alone, drive, swim or use the stove.','Take scheduled medicine; call your doctor if doses were missed.','Alert your care circle so someone can stay with you.']],
+ high:['🔴 HIGH risk: act now','Strong warning signs of an imminent seizure.',['Move to the floor or a soft surface, away from stairs and sharp objects.','Alert your 3 contacts now so they can reach you.','Use your doctor-prescribed rescue medicine if you have one.','If alone, call 112 or ask a neighbour.']]}[lvl];
+ const adv={"Missed anti-seizure medicine":"Take the missed dose as your doctor instructed; set alarms.","Slept very little":"Rest safely; sleep early tonight.","High stress / anxiety":"Breathe in 4s, hold 4s, out 6s for 5 minutes.","Alcohol or drugs":"Stop intake and drink water.","Flashing lights / long screen use":"Turn off screens; sit in a dim calm room.","Fever or illness":"Treat fever and contact your doctor.","Skipped meals / low sugar":"Eat a balanced snack now.","Menstrual cycle / hormonal change":"Discuss cycle-related seizures with your doctor."};
+ let why=(names.length?`<h3>Warning signs found</h3><ul>${names.map(n=>'<li>'+n+'</li>').join('')}</ul>`:'')+(tn.length?`<h3>Fix your triggers</h3><ul>${tn.map(n=>'<li><b>'+n+':</b> '+adv[n]+'</li>').join('')}</ul>`:'')+(red?'<p><b>⚠️ Red flag:</b> twitching with confusion/staring strongly suggests an imminent seizure.</p>':'');
+ const h=J('sg_h',[]);h.unshift({time:new Date().toLocaleString(),lvl,sc,sym:names.length+tn.length});set('sg_h',JSON.stringify(h.slice(0,30)));showH();
+ $('result').innerHTML=`<div class="card res ${lvl}"><span class="tag" style="background:${col}">${m[0]}</span><h2 style="margin-top:10px">Risk score: ${sc} (${pct}%)</h2><div class="meter"><i style="width:${pct}%;background:${col}"></i></div><p>${m[1]}</p>${why}<h3>What to do now</h3><ul>${m[2].map(x=>'<li>'+x+'</li>').join('')}</ul>
+ <div class="row">${lvl!='low'?`<button class="btn red" onclick="goAlert('${lvl=='high'?'High':'Moderate'}')">🚨 Alert my 3 contacts</button>`:''}<a class="btn purple" href="tel:112">📞 Call 112</a><button class="btn ghost" onclick="go('aid')">First-aid guide</button></div>
+ <p class="note" style="margin-top:12px">This is a screening estimate, not a diagnosis. Please consult your neurologist.</p></div>`;$('result').scrollIntoView({behavior:'smooth'})}
+function resetC(){document.querySelectorAll('input[type=checkbox]').forEach(c=>c.checked=false);$('result').innerHTML=''}
+let cur=null;
+function goAlert(l){$('lvl').value=l;go('alert');prepare()}
+function prepare(){
+ const c=J('sg_c',{list:[]});if(!c.list.length){toast('Add your contacts first');go('contacts');return}
+ const level=$('lvl').value,me=(c.me||$('pname').value||'Your contact');
+ const fin=loc=>{const txt={Moderate:'is showing seizure warning signs. Please stay close and be ready to help.',High:'has HIGH seizure risk right now. Please come or call immediately.',Emergency:'is having a seizure. Please come NOW and call 112.'}[level];
+  cur={id:Date.now(),level,msg:`⚠️ SeizureGuard ALERT (${new Date().toLocaleTimeString()}): ${me} ${txt} Help: clear the area, lay them on their side, never put anything in the mouth, call 112 if it lasts over 5 min.${c.note?' Medical note: '+c.note+'.':''}${loc?' Location: '+loc:''}`,sent:{}};renderAlert()};
+ toast('Preparing alert…');if(navigator.geolocation)navigator.geolocation.getCurrentPosition(p=>fin(`https://maps.google.com/?q=${p.coords.latitude},${p.coords.longitude}`),()=>fin(''),{timeout:3500});else fin('')}
+function renderAlert(){const c=J('sg_c',{list:[]});const n=Object.keys(cur.sent).length,t=c.list.length;
+ $('alerts').innerHTML=`<div class="card"><div class="banner ${n==0?'none':n==t?'all':'part'}">${n==0?'⏳ Alert ready: not sent yet. Tap a button for each contact.':n==t?`✅ Warning sent to all ${t} contacts!`:`📨 Warning sent to ${n} of ${t} contacts`}</div>
+ ${c.list.map((x,i)=>{const ph=x.p.replace(/[^\d+]/g,'');return `<div class="ct" style="background:var(--card);border:1px solid var(--bd)"><div class="av">${x.n[0].toUpperCase()}</div><div class="i"><b>${x.n}</b> <small>(${x.r})</small><br>${cur.sent[i]?`<span class="chip ok">✔ Sent via ${cur.sent[i].via} at ${cur.sent[i].t}</span>`:'<span class="chip no">Not sent yet</span>'}</div>
+ <a class="btn sm" href="sms:${ph}?body=${encodeURIComponent(cur.msg)}" onclick="mark(${i},'SMS')">💬 SMS</a><a class="btn sm purple" target="_blank" rel="noopener" href="https://wa.me/${ph.replace('+','')}?text=${encodeURIComponent(cur.msg)}" onclick="mark(${i},'WhatsApp')">🟢 WhatsApp</a><a class="btn sm ghost" href="tel:${ph}" onclick="mark(${i},'Call')">📞 Call</a></div>`}).join('')}
+ <h3>Message being sent</h3><p class="note">${cur.msg}</p></div>`;$('alerts').scrollIntoView({behavior:'smooth'})}
+function mark(i,via){if(!cur)return;cur.sent[i]={via,t:new Date().toLocaleTimeString()};const c=J('sg_c',{list:[]});
+ const log=J('sg_l',[]);const names=Object.keys(cur.sent).map(k=>c.list[k].n);const e=log.find(x=>x.id==cur.id);const row={id:cur.id,time:new Date().toLocaleString(),level:cur.level,names,n:names.length,t:c.list.length};
+ if(e)Object.assign(e,row);else log.unshift(row);set('sg_l',JSON.stringify(log.slice(0,30)));
+ setTimeout(()=>{renderAlert();showLog();toast('✔ Alert marked as sent to '+c.list[i].n)},400)}
+function showLog(){const l=J('sg_l',[]);$('alog').innerHTML=l.length?'<table><tr><th>Time</th><th>Situation</th><th>Sent to</th><th>Status</th></tr>'+l.map(x=>`<tr><td>${x.time}</td><td>${x.level}</td><td>${x.names.join(', ')}</td><td><span class="chip ${x.n==x.t?'ok':'no'}">${x.n}/${x.t} sent</span></td></tr>`).join('')+'</table>':'<p>No alerts sent yet.</p>'}
+function showH(){const h=J('sg_h',[]);const c={low:'var(--green)',moderate:'var(--amber)',high:'var(--red)'};$('hist').innerHTML=h.length?'<table><tr><th>Date</th><th>Symptoms</th><th>Score</th><th>Risk</th></tr>'+h.map(x=>`<tr><td>${x.time}</td><td>${x.sym}</td><td>${x.sc}</td><td style="font-weight:700;color:${c[x.lvl]}">${x.lvl.toUpperCase()}</td></tr>`).join('')+'</table>':'<p>No checks yet.</p>'}
+function clearH(){set('sg_h','[]');showH()}
+build();
+</script></body></html>
